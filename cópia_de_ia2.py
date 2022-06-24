@@ -31,7 +31,7 @@ encoder = OrdinalEncoder()
 nomes_classes = ['Gato','Cachorro']
 tabela_cores = set(features['cor']
 features['cor'] = encoder.fit_transform(pd.DataFrame(features['cor']))
-features
+#features
 classes = encoder.fit_transform(pd.DataFrame(classes))
 
 
@@ -58,12 +58,14 @@ st.number_input('Digite o tamanho da cauda do animal (em cm): ', key='cauda')
 st.number_input('Digite o tamanho da orelha do animal (em cm): ', key='orelha')
 cor = st.selectbox('Informe a cor do animal: ', tabela_cores)
 
-individuo = [st.session_state('peso'),st.session_state('cauda'),
-		st.session_state('orelha'), tabela_cores.index(cor)]
+individuo = [st.session_state.peso,st.session_state.cauda,
+		st.session_state.orelha, tabela_cores.index(cor)]
 
-#testar a árvore
-predicao = arvore.predict([individuo])
-st.write('O animal previsto pela arvore é: ' + nomes_classes[predicao])
+if st.button('Rodar a arvore'):
+
+	#testar a árvore
+	predicao = arvore.predict([individuo])
+	st.write('O animal previsto pela arvore é: ' + nomes_classes[predicao])
 
 #avalia se a predição da árvore é a esperada (ou correta)
 from sklearn import metrics
